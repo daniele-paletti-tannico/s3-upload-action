@@ -13,6 +13,7 @@ Currently, only single file upload is supported.
 | `aws-region` | (Required) Region where the bucket is located. | |
 | `aws-bucket` | (Required) S3 bucket to upload files. | |
 | `file-path` | (Required) Path of the file to upload, eg `./myfile.txt` | |
+| `latest-commit-sha` | (Required) latest commit-sha | |
 | `destination-dir` | Directory on the bucket to upload files. If you don't want to apply anything, specify `/`. | 32 random alphanumeric characters |
 | `bucket-root` | Root directory on the bucket to upload files. Useful for separating objects in buckets that are not related to this action. If you don't want to apply anything, specify `/`. | `artifacts` |
 | `output-file-url` | Add the URL of the file to the output of this action. | `false` |
@@ -41,6 +42,7 @@ Currently, only single file upload is supported.
     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     aws-region: 'ap-northeast-1'
     aws-bucket: ${{ secrets.AWS_BUCKET }}
+    latest-commit-sha: ${{ github.sha }}
     file-path: './myfile.txt'
 ```
 
@@ -60,6 +62,7 @@ Use `file-url` output.
     aws-region: 'ap-northeast-1'
     aws-bucket: ${{ secrets.AWS_BUCKET }}
     file-path: './myfile.txt'
+    latest-commit-sha: ${{ github.sha }}
     output-file-url: 'true' # specify true
 - name: Show URL
   run: echo '${{ steps.upload.outputs.file-url }}' # use this output
@@ -81,6 +84,7 @@ Use `qr-url` output.
     aws-region: 'ap-northeast-1'
     aws-bucket: ${{ secrets.AWS_BUCKET }}
     file-path: './myfile.txt'
+    latest-commit-sha: ${{ github.sha }}
     output-qr-url: 'true' # specify true
 - name: Show URL
   run: echo '${{ steps.upload.outputs.qr-url }}' # use this output
