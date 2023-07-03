@@ -1,6 +1,6 @@
 # S3 Upload Action
 
-This is a GitHub Action that uploads a file to Amazon S3.
+This is a  GitHub Action that uploads a file to Amazon S3 adding a tag "Commit=<Latest Commit Hash>" to each file uploaded.
 Uploaded files can be accessed via HTTP (Use [presigned URL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html) for private s3 buckets).
 Currently, only single file upload is supported.
 
