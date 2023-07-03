@@ -9,17 +9,6 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v3
-      - name: Setup PDM
-        uses: pdm-project/setup-pdm@v3
-        with:
-          python-version: 3.7              # Version range or exact version of a Python version to use, the same as actions/setup-python
-          architecture: x64                # The target architecture (x86, x64) of the Python interpreter. the same as actions/setup-python
-          enable-pep582: false             # Enable PEP 582 package loading globally
-          allow-python-prereleases: false  # Allow prerelease versions of Python to be installed. For example if only 3.12-dev is available, 3.12 will fallback to 3.12-dev
-      - name: Build wheel
-        run: |
-          cd etl_implementations
-          pdm build                   # Then you can use pdm in the following steps.
       - name: Use this action
         uses: ./
         id: upload
