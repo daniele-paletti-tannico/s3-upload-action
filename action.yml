@@ -20,6 +20,9 @@ inputs:
   file-path:
     description: ''
     required: true
+  latest-commit-sha:
+    description: ''
+    required: true
   destination-dir:
     description: ''
     required: false
