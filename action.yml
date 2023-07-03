@@ -1,5 +1,5 @@
-name: 'S3 Upload Action'
-description: 'This is a GitHub Action that uploads a file to Amazon S3.'
+name: 'S3 Tagged Upload Action'
+description: 'This is a GitHub Action that uploads a file to Amazon S3 tagged with its commit SHA.'
 author: 'Hiroyuki Kusu'
 branding:
   icon: 'upload-cloud'
