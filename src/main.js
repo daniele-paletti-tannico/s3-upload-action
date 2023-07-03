@@ -10,6 +10,7 @@ const NODE_ENV = process.env['NODE_ENV'];
 const AWS_ACCESS_KEY_ID = process.env['AWS_ACCESS_KEY_ID'];
 const AWS_SECRET_ACCESS_KEY = process.env['AWS_SECRET_ACCESS_KEY'];
 const AWS_BUCKET = process.env['AWS_BUCKET'];
+const LATEST_COMMIT_HASH = process.env['LATEST_COMMIT_HASH']
 
 let input;
 if (NODE_ENV != 'local') {
@@ -19,6 +20,7 @@ if (NODE_ENV != 'local') {
     awsRegion: core.getInput('aws-region', { required: true }),
     awsBucket: core.getInput('aws-bucket', { required: true }),
     filePath: core.getInput('file-path', { required: true }),
+    latestCommitHash: core.getInput('latest-commit-hash', { required: true }),
     destinationDir: core.getInput('destination-dir'),
     bucketRoot: core.getInput('bucket-root'),
     outputFileUrl: core.getInput('output-file-url'),
@@ -35,6 +37,7 @@ if (NODE_ENV != 'local') {
     awsRegion: 'ap-northeast-1',
     awsBucket: AWS_BUCKET,
     filePath: './README.md',
+    latestCommitHash: LATEST_COMMIT_HASH,
     destinationDir: '',
     bucketRoot: '/',
     outputFileUrl: 'true',
@@ -105,6 +108,8 @@ async function run(input) {
     ContentType: input.contentType,
     Body: fs.readFileSync(input.filePath),
     ACL: acl,
+    Tagging: 'Commit=' + input.latestCommitHash,
+
   };
   await s3.putObject(params).promise();
 
@@ -138,6 +143,7 @@ async function run(input) {
     ContentType: 'image/png', // Required to display as an image in the browser
     Body: fs.readFileSync(tmpQrFile),
     ACL: acl,
+    Tagging: 'Commit=' + input.latestCommitHash,
   };
   await s3.putObject(params).promise();
   fs.unlinkSync(tmpQrFile);
